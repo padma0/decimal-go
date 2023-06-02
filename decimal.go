@@ -1124,7 +1124,7 @@ func (d Decimal) RoundCeil(places int32) Decimal {
 
 	rescaled := d.rescale(-places)
 	if d.Equal(rescaled) {
-		return d
+		return rescaled
 	}
 
 	if d.value.Sign() > 0 {
@@ -1150,7 +1150,7 @@ func (d Decimal) RoundFloor(places int32) Decimal {
 
 	rescaled := d.rescale(-places)
 	if d.Equal(rescaled) {
-		return d
+		return rescaled
 	}
 
 	if d.value.Sign() < 0 {
@@ -1176,7 +1176,7 @@ func (d Decimal) RoundUp(places int32) Decimal {
 
 	rescaled := d.rescale(-places)
 	if d.Equal(rescaled) {
-		return d
+		return rescaled
 	}
 
 	if d.value.Sign() > 0 {
@@ -1203,9 +1203,6 @@ func (d Decimal) RoundDown(places int32) Decimal {
 	}
 
 	rescaled := d.rescale(-places)
-	if d.Equal(rescaled) {
-		return d
-	}
 	return rescaled
 }
 

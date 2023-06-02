@@ -1191,6 +1191,28 @@ func TestDecimal_RoundCeilAndStringFixed(t *testing.T) {
 	}
 }
 
+func TestDecimal_RoundWithTrailingZeros(t *testing.T) {
+	d, err := NewFromString("6.0000")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if d.string(false) != "6.0000" {
+		t.Errorf("Expected 6.0000, got %s", d.string(false))
+	}
+	if d.RoundFloor(2).string(false) != "6.00" {
+		t.Errorf("Expected 6.00, got %s", d.string(false))
+	}
+	if d.RoundCeil(2).string(false) != "6.00" {
+		t.Errorf("Expected 6.00, got %s", d.string(false))
+	}
+	if d.RoundUp(2).string(false) != "6.00" {
+		t.Errorf("Expected 6.00, got %s", d.string(false))
+	}
+	if d.RoundDown(2).string(false) != "6.00" {
+		t.Errorf("Expected 6.00, got %s", d.string(false))
+	}
+}
+
 func TestDecimal_RoundFloorAndStringFixed(t *testing.T) {
 	type testData struct {
 		input         string
@@ -3342,7 +3364,7 @@ func ExampleNewFromFloat() {
 
 func TestDecimal_String(t *testing.T) {
 	type testData struct {
-		input string
+		input    string
 		expected string
 	}
 
@@ -3356,7 +3378,7 @@ func TestDecimal_String(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		d, err := NewFromString(test.input);
+		d, err := NewFromString(test.input)
 		if err != nil {
 			t.Fatal(err)
 		} else if d.String() != test.expected {
@@ -3376,7 +3398,7 @@ func TestDecimal_String(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		d, err := NewFromString(test.input);
+		d, err := NewFromString(test.input)
 		if err != nil {
 			t.Fatal(err)
 		} else if d.String() != test.expected {
